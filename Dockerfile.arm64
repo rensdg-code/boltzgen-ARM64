@@ -4,7 +4,7 @@
 # PIP_EXTRA_INDEX_URL is intentionally absent — torch is pre-installed in the NGC base
 # and the cu121 x86 index has no useful aarch64 wheels anyway.
 
-FROM nvcr.io/nvidia/pytorch:25.01-py3
+FROM nvcr.io/nvidia/pytorch:25.05-py3
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PIP_NO_CACHE_DIR=1 \
@@ -30,11 +30,6 @@ RUN apt-get update && \
 WORKDIR /app
 
 COPY . /app
-
-# Install boltzgen's strict pins before the main install so pip resolves them
-# against the already-present NGC packages rather than the other way around.
-# torch >=2.4.1 is already satisfied by NGC's 2.6.0 and will not be reinstalled.
-RUN pip install --no-cache-dir "numpy==2.0.2" "numba==0.61.0"
 
 RUN pip install --no-cache-dir -e /app
 
