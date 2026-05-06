@@ -31,7 +31,9 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install --no-cache-dir -v -e /app
+RUN pip install --no-cache-dir cython
+RUN pip install --no-cache-dir hydride
+RUN pip install --no-cache-dir -e /app
 
 ARG DOWNLOAD_WEIGHTS=false
 
