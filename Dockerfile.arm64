@@ -35,7 +35,9 @@ COPY . /app
 # isolation issues in the NGC ARM64 container.
 RUN pip install --no-cache-dir "cython>=3.0" hatchling "hatch-vcs==0.4" "hatch-cython==0.5.0"
 RUN pip install --no-cache-dir --no-build-isolation biotite
-RUN pip install --no-cache-dir hydride
+# hydride build system also requires biotite>=1.0 and msgpack; use global env
+RUN pip install --no-cache-dir msgpack
+RUN pip install --no-cache-dir --no-build-isolation hydride
 RUN pip install --no-cache-dir matplotlib pydssp logomaker gemmi
 RUN pip install --no-cache-dir scikit-learn hydra-core edit_distance pytorch-lightning
 RUN pip install --no-cache-dir rdkit pandas pdbeccdutils einx einops mashumaro
