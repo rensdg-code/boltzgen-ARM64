@@ -27,6 +27,12 @@ RUN apt-get update && \
     git \
     && rm -rf /var/lib/apt/lists/*
 
+# The NGC image ships both /opt/hpcx/ucx/lib/libucs.so.0 (has ucs_config_doc_nop)
+# and the Ubuntu system UCX at /usr/lib/aarch64-linux-gnu/libucs.so.0 (missing it).
+# ldconfig defaults to the Ubuntu version, causing libucc.so.1 to fail at torch import.
+# Fix: register HPC-X UCX first so the dynamic linker always finds the right libucs.
+RUN printf '/opt/hpcx/ucx/lib\n/opt/hpcx/ucc/lib\n' > /etc/ld.so.conf.d/hpcx.conf && ldconfig
+
 WORKDIR /app
 
 COPY . /app
