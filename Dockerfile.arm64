@@ -32,8 +32,9 @@ WORKDIR /app
 COPY . /app
 
 RUN pip install --no-cache-dir cython
+RUN pip install --no-cache-dir biotite
 RUN pip install --no-cache-dir hydride
-RUN pip install --no-cache-dir matplotlib biotite pydssp logomaker gemmi
+RUN pip install --no-cache-dir matplotlib pydssp logomaker gemmi
 RUN pip install --no-cache-dir scikit-learn hydra-core edit_distance pytorch-lightning
 RUN pip install --no-cache-dir rdkit pandas pdbeccdutils einx einops mashumaro
 RUN pip install --no-cache-dir "nvidia-ml-py>=12.535.133" huggingface_hub biopython
